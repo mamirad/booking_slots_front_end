@@ -1,0 +1,14 @@
+@import "../../../assets/sass/variables";
+
+.pagelayout-wrapper{
+  margin-top: 60px;
+}
+.page-title {
+    margin-top: 10px;
+    color: $colorblack;
+}
+
+.action-area {
+    display: flex;
+    justify-content: flex-end;
+}

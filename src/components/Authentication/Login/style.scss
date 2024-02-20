@@ -1,0 +1,85 @@
+@import "../../../assets/sass/variables";
+
+.login-wrapper {
+
+    input[type=text],
+    input[type=email],
+    input[type=tel],
+    select,
+    textarea,
+    .ant-input-password {
+        padding: rem(10) rem(14);
+        background-color: $colorwhite !important;
+        border: 1px solid rgb(243, 239, 239);
+
+        .ant-input-password-icon {
+            color: $colorsecondary;
+        }
+
+        input[type=text] {
+            padding: 0;
+            height: auto;
+        }
+
+    }
+
+    .ant-btn{
+        width: 100%; 
+    }
+
+    .header {
+        background-color: $colorlightblue;
+        height: 15vh;
+    }
+
+    .title {
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgb(243, 239, 239);
+        border-radius: 5px;
+        /* Assuming you want a fixed value for border-radius */
+        text-align: center;
+        background-color: $colorwhite;
+        /* Assuming $colorwhite is a variable for the background color */
+        padding: rem(0) rem(6) rem(0) rem(6);
+    }
+
+
+    .ant-form {
+        input[type=password] {
+            padding: 0;
+            height: auto;
+        }
+    }
+
+    a {
+        color: #969da4;
+        font-weight: 600;
+
+        &:hover {
+            color: #969da4;
+        }
+    }
+
+    .form-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3%;
+    }
+
+    .login-form-wrapper {
+        padding: 2%;
+        border: 2px dashed $colorlightblue;
+        border-radius: 10px;
+        .ant-form-item {
+            margin-bottom: rem(16);
+        }
+        .inline-content{
+            background-color: $colorblue !important;
+        }
+
+}
+}

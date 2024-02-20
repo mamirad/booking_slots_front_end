@@ -1,0 +1,29 @@
+@use "sass:math";
+
+$html-font-size: 16px;
+
+@function stripUnit($value) {
+    @return math.div($value, $value * 0 + 1);
+}
+
+@function rem($pxValue) {
+    @return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
+}
+
+//Color Vars
+
+$colorwhite: #fff;
+$colorblack: #000;
+$colorprimary: #0060ff;
+$colorsecondary: #8898AA;
+$colorcontent: #374254;
+$border-color: #DEE2E6;
+$field-bg: #eef0f2;
+$colorred: #f70c0c;
+$heading-color: #32383F;
+$colorauth:#E31837;
+$colorblue:#0060ff;
+$colorlightblue:#b7d2ff;
+//Font Family
+
+$font-secondary: 'Share', cursive;

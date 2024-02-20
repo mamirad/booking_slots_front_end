@@ -1,0 +1,32 @@
+@import '../../../../assets/sass/variables';
+.ant-upload-drag-icon{
+  border: 1px dashed $colorsecondary;
+  border-radius: 50px;
+  padding: 5px;
+  width: fit-content;
+  margin: auto;
+  color: $colorsecondary;
+  .anticon-upload{
+    color: $colorsecondary !important;
+    font-size: 30px !important;
+  }
+}
+.ant-upload-text{
+  span{
+    color: red;
+  }
+}
+.ant-upload-list .ant-upload-list-item  {
+  background-color: #F2F2F2;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+  line-height: 1.5714285714285714;
+  flex: auto;
+  transition: all 0.3s;
+  .anticon svg{
+    color: $colorauth;
+    font-size: 25px;
+  }
+}

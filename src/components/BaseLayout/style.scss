@@ -1,0 +1,40 @@
+@import "../../assets/sass/variables";
+
+
+//Main App
+
+.main-app {
+    width: 100%;
+    overflow: hidden;
+}
+
+//Main Container{
+.main-container{
+    height: 100vh;
+}
+
+//Main Section
+
+.main-section{
+    padding: rem(20) rem(30);
+    min-height: calc(100vh - rem(80));
+}
+
+.ant-layout {
+    .ant-layout-footer{
+        text-align: right;
+        background: transparent;
+        padding: rem(10) rem(20);
+        background: transparent;
+    }
+    .ant-layout-sider-children{
+        background-color:$colorblue ;
+       
+    }
+    .sidebar-nav-desktop-view ul.ant-menu{
+        background-color: $colorblue;
+        li.ant-menu-item a.ant-menu-title-content ::before{
+            color: aliceblue;
+        }
+    }
+}

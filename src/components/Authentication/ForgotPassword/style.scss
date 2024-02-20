@@ -1,0 +1,61 @@
+@import "../../../assets/sass/variables";
+
+.Forgot-Password-wrapper{
+
+    input[type=text],
+    input[type=email],
+    input[type=tel],
+    select,
+    textarea,
+    .ant-input-password {
+        padding: rem(10) rem(14);
+        background-color: $colorwhite !important;
+        border: 1px solid rgb(243, 239, 239);
+
+        .ant-input-password-icon {
+            color: $colorsecondary;
+        }
+
+        input[type=text] {
+            padding: 0;
+            height: auto;
+        }
+
+    }
+
+    .ant-btn{
+        width: 100%; 
+    }
+
+    .header {
+        background-color: $colorprimary;
+        height: 25vh;
+        display: flex;
+        // justify-content: center;
+        align-items: center;
+        h1{
+            margin: 0;
+            margin-left: rem(40);
+        }
+    }
+
+    .form-wrapper{
+        display: flex;
+        justify-content: center;
+       
+    }
+    .form{
+        background-color: $colorwhite;
+        border: 1px solid rgb(243, 239, 239);
+        position: relative;
+        left: 0%;
+        top: 0%;
+        transform: translate(-0%, -30%);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        
+    }
+
+}

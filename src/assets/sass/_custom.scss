@@ -1,0 +1,264 @@
+body {
+    color: #3C3935;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: rem(16);
+    background: $colorwhite;
+}
+
+input[type=text], 
+input[type=email], 
+input[type=tel],
+input[type=password],
+select, textarea,
+.ant-input-password,
+// .ant-picker,
+.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    padding: rem(10) rem(14);
+    border-radius: 3px;
+    font-weight: 400;
+    border: 1px solid $border-color;
+    background-color: $colorwhite !important;
+    width: 100%;
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: #70797D;
+        font-size: rem(14);
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+        color: #70797D;
+        font-size: rem(14);
+      }
+    &:-ms-input-placeholder { /* IE 10+ */
+        color: #70797D;
+        font-size: rem(14);
+      }
+    &:-moz-placeholder { /* Firefox 18- */
+        color: #70797D;
+        font-size: rem(14);
+    }
+}
+
+.ant-picker{
+    padding: 0 rem(14) 0 0;
+    border-radius: 3px;
+    font-weight: 400;
+    border: 0;
+    background-color: $field-bg !important;
+    width: 100%;
+
+    .ant-picker-input > input{
+        line-height: normal;
+        padding: rem(10) rem(14);
+
+        &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #70797D;
+            font-size: rem(14);
+        }
+        &::-moz-placeholder { /* Firefox 19+ */
+            color: #70797D;
+            font-size: rem(14);
+          }
+        &:-ms-input-placeholder { /* IE 10+ */
+            color: #70797D;
+            font-size: rem(14);
+          }
+        &:-moz-placeholder { /* Firefox 18- */
+            color: #70797D;
+            font-size: rem(14);
+        }
+    }
+}
+
+
+a{
+    color: $colorprimary;
+    &:hover{
+        opacity: 0.9;
+        color: $colorprimary;
+    }
+}
+
+
+
+//Generic Style
+
+.ant-form-item-label{
+    font-weight:700;
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before{
+    display: none;
+}
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional):after{
+    display: inline-block;
+    margin-right: rem(5);
+    margin-left: rem(5);
+    color: #ff4d4f;
+    font-size: rem(14);
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: '*';
+}
+
+label.ant-form-item-required:after{
+    display: inline-block;
+    margin-right: rem(5);
+    margin-left: rem(5);
+    color: #ff4d4f;
+    font-size: rem(14);
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    content: '*';
+}
+
+.form-group{
+    .ant-form-item-label{
+        label{
+            color: $colorcontent;
+        }
+    }
+}
+
+.ant-form-item-has-error{
+    input[type=text], 
+    input[type=email], 
+    input[type=tel], 
+    select, textarea, 
+    .ant-input-password,
+    .ant-picker,
+    .ant-select-selector{
+        border: 1px solid $colorred !important;
+    }
+}
+
+.ant-picker{
+    cursor: pointer;
+}
+
+.ant-btn{
+    font-size: rem(12);
+    color: #333;
+    border-radius: 3px;
+    border: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    min-height: rem(38);
+
+    &:hover, &:focus{
+        opacity: 0.85;
+        outline: none;
+    }
+
+    &:where(.css-dev-only-do-not-override-mxhywb).ant-btn-primary:not(:disabled):hover {
+        background-color: $colorprimary;
+    }
+    &:where(.css-dev-only-do-not-override-mxhywb).ant-btn-secondary:not(:disabled):hover {
+        background-color: $colorsecondary;
+    }
+}
+
+.ant-btn-primary{
+    background: $colorprimary;
+    color: $colorwhite;
+    &:hover, &:focus{
+        background: $colorprimary;
+    }
+}
+
+.ant-btn-auth{
+    background: $colorauth !important;
+    color: $colorwhite !important;
+    &:hover, &:focus{
+        background: $colorauth;
+    }
+}
+
+.round-icon{
+    background-color: $colorsecondary;
+    color: $colorwhite;
+    padding: 5px;
+    margin: 0 2px;
+    size: 25px;
+    margin-bottom: -7px;
+    &.round-delete{
+        background: $colorblue;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.ant-input-search {
+    background: $border-color !important;
+    border: 1px solid $border-color;
+    .ant-input-affix-wrapper{
+        background: $colorwhite;
+        height: rem(38);
+    }
+    
+    .ant-input-group-addon{
+        .ant-btn{
+            background: $colorprimary;
+            .anticon svg{
+                fill: $colorwhite;
+            }
+        }
+    }
+}
+.ant-btn-secondary{
+    background: $colorsecondary;
+    color: $colorwhite;
+    &:hover, &:focus{
+        background: $colorsecondary;
+        color: $colorwhite;
+    }
+}
+
+//Loader
+
+.ant-space {
+    &.loader{
+        display: inline-flex;
+        background: rgba(255,255,255,0.6);
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        justify-content: center;
+        z-index: 9999;
+
+        .ant-space-item{
+            .ant-spin-spinning{
+                .ant-spin-dot-spin{
+                    transform: rotate(0deg);
+                    -webkit-animation: none;
+                    animation: none;
+                    .ant-spin-dot-item{
+                        display: none;
+                    }
+                    &::before{
+                        content: url(../images/spinner-o.gif);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.ant-layout{
+    background: $colorwhite;
+}
+
+.main-head{
+    margin-top: 50px;
+}
+
+.inline-content{
+    display: flex; 
+    align-items : center; 
+    justify-content: center
+}

@@ -1,0 +1,154 @@
+@import "../../../assets/sass/variables";
+
+.app-header{
+    background-color: $colorlightblue;
+    height: auto;
+    border-bottom: 1px solid $border-color;
+    padding: rem(13) rem(30) rem(13) rem(280);
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    transition: all 0.2s;
+
+    // .logo{
+    //     display: flex;
+    //     align-items: center;
+    //     .anticon {
+    //         svg{
+    //             fill: #2F353E;
+    //             height: rem(20);
+    //             width: rem(20);
+    //         }
+    //     }
+
+    //     i{
+    //         color: #2F353E;
+    //         font-size: rem(24);
+    //         cursor: pointer;
+    //         transition: all ease .2s;
+
+    //         &.fliped{
+    //             transform: scaleX(-1);
+    //         }
+    //     }
+    // }
+
+    .userProfile {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0%;
+        h3{
+            padding: 0%;
+            margin: -1%;
+        }
+        .userProfile-btn {
+            align-items: center;
+
+            .userImg {
+                background: $colorblue;
+                color: $colorwhite;
+                height: rem(34);
+                width: rem(34);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 100%;
+                font-size: rem(13);
+                overflow: hidden;
+                img{
+                    border-radius: 100%; 
+                    width: 100%;
+                }
+                span{
+                    font-weight: 500;
+                    color: $colorwhite;
+                    text-transform: uppercase;
+                }
+            }
+
+            .userInfo{
+                text-transform: capitalize;
+                font-size: rem(13);
+                color: #2F353E;
+                line-height: normal;
+            }
+
+            i{
+                font-size: rem(24);
+                color: #8F8F8F;
+            }
+        }
+    }
+}
+
+.layout-full{
+    .app-header{
+        padding-left: rem(110);
+    }
+}
+
+.logout-menu {
+    padding: 0;
+    // max-width: rem(300);
+
+    .ant-dropdown-menu-item{
+        padding: rem(10);
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+        font-size: rem(13);
+        color: #2F353E;
+
+        i{
+            color: $colorcontent;
+            font-size: rem(16);
+            margin-right: rem(10);
+        }
+    }
+
+    .admin-text{
+        background: $colorlightblue;
+        color: $colorwhite;
+        padding: rem(5);
+        border-radius: rem(5);
+        margin-bottom: rem(10);
+    }
+}
+
+// Responsive
+
+@media (max-width: 1366px){
+    .app-header{
+        .userProfile {
+            .userProfile-btn {
+                .userImg{
+                    margin-right: rem(8);
+                    height: rem(40);
+                    width: rem(40);
+                }
+                .userInfo{
+                    font-size: rem(14);
+                }
+            }
+        }
+    } 
+}
+
+@media (max-width: 1280px){
+    .app-header{
+        .logo{
+            border-right: 0;
+        }
+        .userProfile {
+            .userProfile-btn {
+                justify-content: flex-end;
+                .userInfo{
+                    display: none;
+                }
+            }
+        }
+    } 
+}

@@ -1,0 +1,110 @@
+@import "../../../assets/sass/variables";
+
+.ant-table-wrapper {
+    margin-bottom: 15px !important;
+
+    .ant-table {
+        th {
+            background-color: $colorsecondary !important;
+            color: $colorwhite !important;
+            svg {
+                color: $colorwhite !important;
+            }
+        }
+
+		tr {
+			&:hover {
+				cursor: pointer;
+			}
+			&:nth-child(2n) {
+				td {
+					background-color: #EEF2F6;
+				}
+			}
+		}
+    }
+
+    .ant-table-container {
+		table {
+			>thead {
+				>tr {
+					&:first-child {
+						>* {
+							&:first-child {
+								border-start-start-radius: 0;
+							}
+							&:last-child {
+								border-start-end-radius: 0;
+							}
+						}
+					}
+				}
+			}
+
+			tbody{
+				tr{
+					td{
+						color: #002266;
+						font-size: rem(12);
+					}
+				}
+			}
+		}
+	}
+
+	.ant-table-thead {
+		>tr {
+			>th {
+				&:not(:last-child) {
+					&:not(.ant-table-selection-column) {
+						&:not(.ant-table-row-expand-icon-cell) {
+							&:not([colspan]) {
+								&::before {
+									height: rem(64);
+								}
+							}
+						}
+					}
+				}
+			}
+			>td {
+				&:not(:last-child) {
+					&:not(.ant-table-selection-column) {
+						&:not(.ant-table-row-expand-icon-cell) {
+							&:not([colspan]) {
+								&::before {
+									height: rem(64);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: 60%;
+	}
+}
+
+
+
+.status-toggle {
+	display: flex;
+    align-items: center;
+    justify-content: right;
+
+	:where(.css-dev-only-do-not-override-1adbn6x).ant-checkbox-checked .ant-checkbox-inner {
+		background-color: $colorsecondary;
+		border-color: $colorsecondary;
+	}
+}
+
+.total-records{
+	font-weight: 500;
+}
+

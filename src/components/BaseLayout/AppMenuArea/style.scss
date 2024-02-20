@@ -1,0 +1,117 @@
+@import "../../../assets/sass/variables";
+
+// Sidebar
+
+.ant-layout {
+    .ant-layout-sider{
+        background: $colorprimary;
+        color: $colorwhite;
+        padding: 0;
+    }
+
+    .ant-layout-content{
+        height: 100vh;
+        overflow-y: auto;
+    }
+}
+
+.sidebar-nav-desktop-view{
+    padding-top: rem(40);
+    height: 100vh;
+    position: fixed;
+    z-index: 3;
+    overflow: hidden;
+
+    .sidebar-logo-wrap{
+        text-align: center;
+        padding: rem(25);
+        position: relative;
+        &::after{
+            position: absolute;
+            content: "";
+            width: rem(190);
+            height: 0.5px;
+            background: $colorwhite;
+            display: inline-block;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        img{
+            transition: all ease .4s;
+            height: auto;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+
+    ul.ant-menu {
+        margin-top: rem(10);
+        background: $colorprimary;
+        border: 0;
+        overflow-x: hidden !important;
+
+        .ant-menu-item {
+            border-radius: 0;
+            margin: 0;
+            height: rem(50);
+            text-transform: capitalize;
+            font-size: rem(16);
+            display: flex;
+            align-items: center;
+            padding-left: rem(20) !important;
+            padding-top: rem(16);
+            padding-bottom: rem(16);
+            width: 100%;
+            
+            a , i{
+                color: $colorwhite;   
+            }
+            i{
+                font-size: rem(18);
+            }
+            &::after{
+                display: none;
+            }
+            
+            &:hover{
+                a , i{
+                    color: $colorwhite;   
+                }
+            }
+            &:focus, &:active{
+                background-color: transparent !important;
+            }
+        }
+        .ant-menu-item-selected{
+            background-color: transparent;
+            color: aliceblue;
+            a , i{
+                color: $colorwhite;   
+            }
+            &:hover{
+
+                a , i{
+                    color: $colorwhite;    
+                }
+                
+
+            }
+        }
+
+
+        &.ant-menu-inline-collapsed{
+            padding: 0 rem(10);
+            .ant-menu-item{
+                i{
+                    font-size: rem(20);
+                }
+                padding-left: rem(17);
+                border-bottom: 0;
+            }
+        }
+    }
+}
