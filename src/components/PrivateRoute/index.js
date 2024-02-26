@@ -19,10 +19,10 @@ export default function PrivateRoute ({
   return (
     <Route {...rest} render={ props => {
       return (
-        // StorageService.instance.getAccessToken()
-        //   ? 
+        StorageService.instance.getAccessToken()
+          ? 
           <Component {...props} {...rest} />
-          // : <Redirect to={{ pathname: APP_URL.AUTH.LOGIN }} />
+          : <Redirect to={{ pathname: APP_URL.AUTH.LOGIN }} />
       )
     }
     } />

@@ -1,30 +1,41 @@
 import LOCALIZATION from "services/LocalizationService";
 export const TABLE_KEYS={
   ID:'id',
-  NAME:"name",
+  FIRST_NAME:"first_name",
+  LAST_NAME:'last_name',
   TYPE:'type',
   EMAIL:"email"
 }
 export const ADD_EMPLOYEE_KEYS={
-  NAME:'name',
+  FIRST_NAME:'first_name',
+  LAST_NAME:'last_name',
   EMAIL:"email",
-  TYPE:"type",
+  ROLE:"role",
   PASSWORD:"password"
 }
-export const EMPLOYEMENT_TYPE_OPTIONS = [
+export const EMPLOYEE_ROLE_KEYS={
+  DEVELOPER:"developer",
+  BUSINESS_DEVELOPER:"business_developer",
+  TEAM_LEAD:"team_lead",
+  ADMIN:"admin"
+}
+export const EMPLOYEMENT_ROLE_OPTIONS = [
   {
-      name: LOCALIZATION.CONTRACTUAL,
-      value: LOCALIZATION.CONTRACTUAL
+      value: EMPLOYEE_ROLE_KEYS.ADMIN,
+      name: LOCALIZATION.ADMIN
   },
   {
-      name: LOCALIZATION.FULL_TIME,
-      value: LOCALIZATION.FULL_TIME
+      value: EMPLOYEE_ROLE_KEYS.TEAM_LEAD,
+      name: LOCALIZATION.TEAM_LEAD
   },
   {
-      name: LOCALIZATION.PART_TIME,
-      value: LOCALIZATION.PART_TIME
-  },
-
+    value: EMPLOYEE_ROLE_KEYS.BUSINESS_DEVELOPER,
+    name: LOCALIZATION.BUSINESS_DEVELOPER
+},
+{
+  value: EMPLOYEE_ROLE_KEYS.DEVELOPER,
+  name: LOCALIZATION.DEVELOPER
+},
 ]
 export const EMPLOYEE_TABLE_COLUMNS= [
   {
@@ -34,21 +45,21 @@ export const EMPLOYEE_TABLE_COLUMNS= [
     sorter: true,
   },
     {
-      title: LOCALIZATION.NAME,
-      dataIndex: TABLE_KEYS.NAME ,
-      key: TABLE_KEYS.NAME,
+      title: LOCALIZATION.FIRST_NAME,
+      dataIndex: TABLE_KEYS.FIRST_NAME ,
+      key: TABLE_KEYS.FIRST_NAME,
+      sorter: true,
+    },
+    {
+      title: LOCALIZATION.LAST_NAME,
+      dataIndex: TABLE_KEYS.LAST_NAME,
+      key: TABLE_KEYS.LAST_NAME,
       sorter: true,
     },
     {
       title: LOCALIZATION.EMAIL,
       dataIndex: TABLE_KEYS.EMAIL,
       key: TABLE_KEYS.EMAIL,
-      sorter: true,
-    },
-    {
-      title: LOCALIZATION.TYPE,
-      dataIndex: TABLE_KEYS.TYPE,
-      key: TABLE_KEYS.TYPE,
       sorter: true,
     },
   ];

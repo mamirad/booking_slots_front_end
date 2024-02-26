@@ -8,8 +8,7 @@ import React from 'react';
 import { Input, Form } from 'antd';
 
 // Localization
-import LOCALIZATION from '../../../../services/LocalizationService';
-
+import LOCALIZATION from 'services/LocalizationService';
 
 // Style
 import './style.scss';
@@ -26,25 +25,25 @@ function Password({
   // Rules
   let rules = [
     { required: required, message: LOCALIZATION.REQUIRED  },
-    // ...(validator || [])
+    ...(validator || [])
   ];
 
   // Custom Validations
-  !!validator && rules.push( validator );
+  //!!validator && rules.push( validator );
 
-  // !!validator && rules.concat( validator );
+  //!!validator && rules.concat( validator );
 
 
   // Input Email
   const InputPassword = (
     <Input.Password 
-      placeholder={ placeholder || label } 
+      placeholder={ placeholder } 
       onChange={ onChange || null } 
       defaultValue={ defaultValue }
       disabled={ disabled }
       onBlur={ onBlur || null }
-      maxLength={ maxLength }
-      minLength={ minLength }
+      maxLength={ maxLength || 25 }
+      minLength={ minLength || 8 }
     />
   );
   
