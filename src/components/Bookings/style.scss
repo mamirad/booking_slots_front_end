@@ -9,3 +9,11 @@
     flex: end;
   }
 }
+.add_booking_buttons{
+  display: flex;
+  justify-content: space-between;
+  .cancel{
+    background-color: lightgray;
+    color: black;
+  }
+}

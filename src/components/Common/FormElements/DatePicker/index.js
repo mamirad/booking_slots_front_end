@@ -26,6 +26,7 @@ function Picker({
   disabledDate,
   notwrapInForm,
   type,
+  showTime
 }) {
   // Rules
   let rules = [
@@ -50,7 +51,7 @@ function Picker({
       readOnly={readOnly}
       format={format}
       disabledDate={disabledDate}
-
+      showTime={showTime}
       // suffixIcon={<CaretDownOutlined />}
     />
   );

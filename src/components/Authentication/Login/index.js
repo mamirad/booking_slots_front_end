@@ -45,11 +45,11 @@ function Login() {
   const loading = useSelector((state) => state?.Auth?.loading);
   // const {[LOGIN+LOADING]:securityLoading=false}=useSelector(state=>state.Crud);
 
-  useEffect(() => {
-    if (location.state && location.state.from) {
-      localStorage.setItem("prevState", JSON.stringify(location.state.from.pathname));
-    }
-  })
+  // useEffect(() => {
+  //   if (location.state && location.state.from) {
+  //     localStorage.setItem("prevState", JSON.stringify(location.state.from.pathname));
+  //   }
+  // })
 
 
   const onSubmit = (data) => {

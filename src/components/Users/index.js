@@ -9,24 +9,25 @@ import { PlusOutlined } from '@ant-design/icons';
 import { REDUX_STATES } from "constants/ReduxStates";
 import { EMPLOYEE_TABLE_COLUMNS } from "./constants";
 import URL from "constants/ApplicationUrls";
-import { getAction } from "store/actions/CRUDAction";
+import { getAction, postAction } from "store/actions/CRUDAction";
 import { API_URLS } from "constants/ApiUrl";
 import { getToken } from "helpers/GeneralHelper";
 import { useDispatch, useSelector } from "react-redux";
 import { Text } from "components/Common/FormElements";
+import Form from "antd/es/form/Form";
+import { successNotification } from "helpers/Notification";
 
 
 function Layout() {
   const dispatch = useDispatch();
   const token = getToken();
   const history = useHistory()
-  const { EMPLOYEES, RESPONSE, LOADING } = REDUX_STATES;
-
+  const { EMPLOYEES, RESPONSE, LOADING , INVITE } = REDUX_STATES;
+  const [form]=Form.useForm()
   const {
     [EMPLOYEES + LOADING]: loading = false,
     [EMPLOYEES + RESPONSE]: employeeData = {},
   } = useSelector((state) => state?.Crud);
-
   const [inviteModal, setInviteModal] = useState(false);
 
   useEffect(() => {
@@ -50,7 +51,17 @@ function Layout() {
   const onCancel = () => {
     setInviteModal(false)
   }
-
+  
+  const onSubmit = (data) => {
+      {data.email = `data[email]: ${data?.email}`}
+    dispatch(postAction(API_URLS.INVITE,data?.email,{}, INVITE)).then(
+      (res) => {
+        successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
+        form.resetFields()
+        history.push(URL.USERS)
+      }
+    );
+  };
   return (
     <>
       <Pagelayout
@@ -80,13 +91,20 @@ function Layout() {
           className="py-5"
           width={'400px'}
           onOk={onCancel}
+          icon={null}
+          footer={null}
         >
+          <Form form={form} layout="vertical" onFinish={onSubmit}>
           <Text
             className="mt-5"
             name={LOCALIZATION.INVITE_EMAIL}
             placeholder={LOCALIZATION.ENTER_INVITI_EMAIL}
             required
           />
+          <Button type="primary" htmlType="submit"  onClick={()=>new Event('submit')} >
+            {LOCALIZATION.INVITE}
+          </Button>
+          </Form>
         </Modal>
       </Pagelayout>
     </>

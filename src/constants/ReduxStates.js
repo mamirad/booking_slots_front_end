@@ -10,5 +10,6 @@ export const REDUX_STATES = {
   ERROR: "_error",
   RESPONSE: "_response",
   SECURITY_CHECK:"security_check",
-  LOGIN:"login"
+  LOGIN:"login",
+  INVITE:"invite"
 };

@@ -260,7 +260,7 @@ const TableList = ({
         <ConfigProvider renderEmpty={!!error && customizeRenderEmpty}>
           <Table
             columns={getColumns()}
-            dataSource={dummyData || parseData?.results || results}
+            dataSource={dummyData || parseData?.data || results}
             pagination={false}
             onRow={(record) => {
               return {

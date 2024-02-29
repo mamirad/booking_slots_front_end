@@ -59,18 +59,17 @@ const Layout = () => {
   }
  }
 
-  const addEmployee = (data) => {
-    const params={
-      token:token
+ const addEmployee = (data) => {
+  
+  dispatch(postAction(API_URLS.SIGN_UP, data, EMPLOYEE)).then(
+    () => {
+      successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
+      form.resetFields();
+      history.push(URL.USERS);
     }
-    dispatch(postAction(API_URLS.SIGN_UP, data, {params}, EMPLOYEE)).then(
-      () => {
-        successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
-        form.resetFields()
-        history.push(URL.USERS)
-      }
-    );
-  };
+  );
+};
+
   const editEmployee = (data) => {
     const params={
       token:token
