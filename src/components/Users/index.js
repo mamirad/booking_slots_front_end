@@ -53,8 +53,12 @@ function Layout() {
   }
   
   const onSubmit = (data) => {
-      {data.email = `data[email]: ${data?.email}`}
-    dispatch(postAction(API_URLS.INVITE,data?.email,{}, INVITE)).then(
+    const formattedData = {
+      user: {
+        email: data?.email
+      }
+    };
+    dispatch(postAction(API_URLS.INVITE,formattedData,{}, INVITE)).then(
       (res) => {
         successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
         form.resetFields()
