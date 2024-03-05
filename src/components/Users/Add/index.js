@@ -11,7 +11,7 @@ import { REDUX_STATES } from 'constants/ReduxStates'
 //style
 import '../style.scss';
 import { parseEditEmployeeFormData } from 'dataParser/Employee';
-import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory, useLocation, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import URL from 'constants/ApplicationUrls';
 import { getToken, parseGeneralErrorMessage } from 'helpers/GeneralHelper';
 import { getAction, postAction, putAction } from 'store/actions/CRUDAction'
@@ -24,15 +24,22 @@ import { useEffect } from 'react'
 
 
 const Layout = () => {
-  const {EMPLOYEE,LOADING,RESPONSE}=REDUX_STATES;
+  const {EMPLOYEE,LOADING,RESPONSE,CHECK_TOKEN}=REDUX_STATES;
   const [form] = Form.useForm()
   const history = useHistory()
   const { id } = useParams();
+  // const {token}=useParams()
   const dispatch=useDispatch();
+
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const inviteToken = searchParams.get('token');
 
   const {
     [EMPLOYEE + LOADING]: loading = false,
     [EMPLOYEE + RESPONSE]: usersData = {},
+    [CHECK_TOKEN + RESPONSE]: validUser = {},
   } = useSelector((state) => state?.Crud);
 
   useEffect(()=>{
@@ -40,50 +47,78 @@ const Layout = () => {
       getEmplyeeData(id)
     }
   },[])
-  
-  const token=getToken();
- 
- const getEmplyeeData=(id)=>{
-    const params={
-      token
+
+  useEffect(()=>{
+    if(inviteToken){
+      checkValidToken()
     }
-    return dispatch(getAction(API_URLS.USERS+id,{params},EMPLOYEE))
- }
-
- const onSubmit=(data)=>{
-  if(id){
-    editEmployee(data)
-  }
-  else{
-    addEmployee(data)
-  }
- }
-
- const addEmployee = (data) => {
+  },[inviteToken])
   
+ const getEmplyeeData=(id)=>{
+    return dispatch(getAction(API_URLS.USERS+id,{},EMPLOYEE))
+ }
+ 
+ const checkValidToken=()=>{
+   
+  const params={
+    token:inviteToken
+  }
+  dispatch(getAction(API_URLS.CHECK_TOKEN, {params},{}, CHECK_TOKEN)).then((res)=>{
+    !res?.success && history.push(URL.USERS)
+  })
+ }
+ 
+ const addEmployee = (data) => {
   dispatch(postAction(API_URLS.SIGN_UP, data, EMPLOYEE)).then(
     () => {
       successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
       form.resetFields();
       history.push(URL.USERS);
     }
-  );
+  ).catch(error=>{
+    errorNotification(error?.error)
+  })
+};
+
+const invitedEmployee = (data) => {
+  dispatch(putAction(API_URLS.ACCEPT+inviteToken, data, EMPLOYEE)).then(
+    () => {
+      successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
+      form.resetFields();
+      history.push(URL.USERS);
+    }
+  ).catch(error=>{
+    errorNotification(error?.error)
+  })
 };
 
   const editEmployee = (data) => {
-    const params={
-      token:token
-    }
-    dispatch(putAction(API_URLS.USERS+id, data, {params}, EMPLOYEE)).then(
+    dispatch(putAction(API_URLS.USERS+id, data, {}, EMPLOYEE)).then(
       () => {
         successNotification(LOCALIZATION.EDIT_EMPLOYEE_SUCCESSFULLY);
         form.resetFields()
-
         history.push(URL.USERS)
       }
-    );
+    ).catch(error=>{
+      errorNotification(error?.error)
+    })
   };
-
+  
+  const onSubmit=(data)=>{
+   if(id){
+     editEmployee(data)
+   }
+   else if(inviteToken){
+     invitedEmployee(data)
+   }
+   else{
+     addEmployee(data)
+   }
+  }
+  const onCancel=()=>{
+    form.resetFields();
+    history.push(URL.USERS)
+  }
   return (
     <>
 
@@ -114,7 +149,7 @@ const Layout = () => {
               <Password label={LOCALIZATION.PASSWORD} name={ADD_EMPLOYEE_KEYS.PASSWORD} required />
             </Col>
             <Col span={24} className='form-buttons'>
-              <Button className='cancel' onClick={() => history.push(URL.USERS)}>Cancel</Button>
+              <Button className='cancel' onClick={()=>onCancel()}>Cancel</Button>
               <Button type='primary' htmlType="submit" onClick={() => new Event("submit")}>
                 {id?LOCALIZATION.UPDATE:LOCALIZATION.ADD}
               </Button>

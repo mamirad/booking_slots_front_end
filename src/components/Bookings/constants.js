@@ -1,15 +1,15 @@
 import LOCALIZATION from "services/LocalizationService"
 
 export const EVENT_KEYS = {
-  TITLE: "title",
-  ROOM: "room",
-  START_DATE:"start_date",
-  END_DATE:"end_date",
+  NAME: "name",
+  ROOM: "location_id",
+  START_TIME:"start_time",
+  END_TIME:"end_time",
   REMINDER:"reminder",
   RECURSION:"recursion",
-  DESCRIPTION:"end_date",
-  USERS:"users",
-  ATTENDIE_USER:"attendie_user"
+  DESCRIPTION:"description",
+  USERS:"user",
+  DATE:"schedule_date"
 }
 
 export const ROOM_KEYS = {
@@ -22,8 +22,8 @@ export const ROOM_KEYS = {
 
 export const RECURSION_KEYS={
   NO_REPEAT:'no_repeat',
-  DAILY:"daily",
-  REPEAT_EVERY_WEEK:"repeat_every_week"
+  WEEKLY:"weekly",
+  MONTHLY:"monthly"
 }
 
 export const REMINDER_KEYS={
@@ -62,12 +62,12 @@ export const RECURSION_OPTIONS = [
     value: RECURSION_KEYS.NO_REPEAT,
   },
   {
-    name: LOCALIZATION.DAILY,
-    value: ROOM_KEYS.DAILY,
+    name: LOCALIZATION.WEEKLY,
+    value: RECURSION_KEYS.WEEKLY,
   },
   {
-    name: LOCALIZATION.REPEAT_EVERY_WEEK,
-    value: ROOM_KEYS.REPEAT_EVERY_WEEK,
+    name: LOCALIZATION.MONTHLY,
+    value: RECURSION_KEYS.MONTHLY,
   }
 ]
 

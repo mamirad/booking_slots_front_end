@@ -16,22 +16,9 @@ export const isSuperAdmin = () => {
   return isSuperAdmin
 }
 
-export const getName = () => {
-  const token = StorageService.instance.getAccessToken() || {};
-  const { first_name, last_name } = parseJwt(token)?.user || {};
-
-  if (!!first_name && !!last_name) {
-    return `${first_name} ${last_name}`;
-  } else if (!!first_name) {
-    return first_name;
-  } else {
-    return last_name || LOCALIZATION.USER;
-  }
-};
-
 export const getUserId = () => {
-  const token = StorageService.instance.getAccessToken() || {};
-  return parseJwt(token)?.user_id;
+  const info = StorageService.instance.getUserInfo() || {};
+  return info?.id;
 };
 
 export const getToken=()=>{
@@ -39,10 +26,11 @@ export const getToken=()=>{
   return token;
 }
 
-export const getUserEmail=()=>{
-  const token=StorageService.instance.getAccessToken()||{};
-  return parseJwt(token)?.email;
+export const getUserInfo=()=>{
+  const info=StorageService.instance.getUserInfo()||{};
+  return info;
 }
+
 const debounceFunction = () => {
   let timeoutInstance = null;
   return (callback) => {

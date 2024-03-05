@@ -1,28 +1,35 @@
+//React
+import './style.scss'
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import events from "./events";
+import { useForm } from "antd/es/form/Form";
+import AddBooking from './Add/index'
+
+//React Big Calender
 import { Calendar, Views, luxonLocalizer, momentLocalizer } from "react-big-calendar";
+import events from "./events";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import './style.scss'
-import PageLayout from 'components/Common/PageLayout'
 import { DateTime, Settings } from 'luxon'
+
+//Common
+import PageLayout from 'components/Common/PageLayout'
 import TimezoneSelect from "components/Common/Timezone/Timezone";
-import { Button, Col, Input, Modal, Row } from "antd";
-import Form, { useForm } from "antd/es/form/Form";
-import LOCALIZATION from "services/LocalizationService";
-import { Text, InputButton, Dropdown, TimePicker, TextArea, DatePicker, Email } from "components/Common/FormElements";
-import { ROOM_OPTIONS, EVENT_KEYS, RECURSION_OPTIONS, REMINDER_OPTIONS } from "./constants";
-import { DATE_FORMAT } from "constants/DateFormat";
+
+//Constants
 import { getAction } from "store/actions/CRUDAction";
 import { API_URLS } from "constants/ApiUrl";
 import { REDUX_STATES } from "constants/ReduxStates";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken } from "helpers/GeneralHelper";
-const { EMPLOYEES, RESPONSE, LOADING, INVITE } = REDUX_STATES;
+import { getToken, getUserId } from "helpers/GeneralHelper";
+import { Button } from 'antd';
+import { DATE_FORMAT } from 'constants/DateFormat';
+import { formatDate } from 'helpers/DateHelper';
+const { EMPLOYEES, RESPONSE, LOADING, INVITE,ROOMS } = REDUX_STATES;
+
+//Components
+
 
 moment.locale("en-GB");
-// const localizer = momentLocalizer(moment);
-
 
 const Index = () => {
   const defaultTZ = 'Australia/Perth';
@@ -39,6 +46,7 @@ const Index = () => {
   const {
     [EMPLOYEES + LOADING]: loading = false,
     [EMPLOYEES + RESPONSE]: employeeData = {},
+    [ROOMS + RESPONSE]: roomsOptions = {},
   } = useSelector((state) => state?.Crud);
 
   const {
@@ -61,14 +69,29 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    getEmployeesData()
+    getEmployeesData();
+    getRooms()
   }, [])
 
-  const getEmployeesData = () => {
-    const params = {
-      token
+  const usersOptions = employeeData?.data?.map(item => (
+    {
+      name: `${item?.first_name} ${item?.last_name}`,
+      value: `${item?.id}`
     }
-    return dispatch(getAction(API_URLS.USERS, { params }, EMPLOYEES))
+  ));
+
+  const roomOptions = roomsOptions?.data?.map(item => (
+    {
+      name: `${item?.name}`,
+      value: `${item?.id}`
+    }
+  ));
+
+  const getEmployeesData = () => {
+    return dispatch(getAction(API_URLS.USERS, {}, EMPLOYEES))
+  }
+  const getRooms = () => {
+    return dispatch(getAction(API_URLS.ROOMS, {}, ROOMS))
   }
 
   const handleSelectEvent = useCallback(
@@ -93,15 +116,25 @@ const Index = () => {
     return DateTimeObj.fromISO(str).toJSDate();
   }
 
+  const toolTipContent=(data)=>{
+    return(
+      <h5 className='slot-wrapper'>{data?.title}</h5>
+    )
+  }
+
   const onSubmit = (data) => {
-    console.log(data);
+    const id=getUserId()
+    data.created_by=id;
+    data.schedule_date=formatDate(new Date(data.schedule_date),DATE_FORMAT.YEAR_MONTH_DAY);
+    data.start_time=formatDate(new Date(data.start_time),DATE_FORMAT.HOUR_MINUTE_12F);
+    data.end_time=formatDate(new Date(data.end_time),DATE_FORMAT.HOUR_MINUTE_12F);
+    console.log('>>>>>>>>>>>', data)
     if (data) {
       if (selectedSlot) {
         const { start, end } = selectedSlot;
-
         setEvents((prev) => [
           ...prev,
-          { title: data.title, start: start, end: end },
+          { title: data.title, start: start, end: end,room:data?.room  },
         ]);
         form.resetFields();
       } else if (selectedEvent) {
@@ -121,17 +154,12 @@ const Index = () => {
     setBookingModal(false); // Close the modal on cancel
   };
 
-  const usersOptions = employeeData?.data?.map(item => (
-    {
-      name: `${item?.first_name} ${item?.last_name}`,
-      value: `${item?.first_name} ${item?.last_name}`
-  }
-  ));
 
 
 
   return (
     <div className="timezone-wrapper">
+
       <PageLayout
         actions={
           <TimezoneSelect
@@ -141,75 +169,44 @@ const Index = () => {
           />
         }
       >
+        <div className='filters-wrapper'>
+          <Button>Room 1</Button>
+          <Button>Room 2</Button>
+          <Button>Room 3</Button>
+          <Button>Room 4</Button>
+          <Button>Room 5</Button>
+        </div>
+        
         <div className="calender-wrapper">
           <Calendar
             events={myEvents}
             localizer={localizer}
             step={30}
+            components={{event:toolTipContent}}
             defaultDate={new Date()}
             defaultView={Views.WEEK}
             onSelectEvent={handleSelectEvent}
             onSelectSlot={handleSelectSlot}
             selectable
-            dayLayoutAlgorithm={'no-overlap'}
+            formats= { DATE_FORMAT.MONTH_SLASH_DAY_SLASH_YEAR_HOUR_MIN}
+            timeslots={1}
+            toolbar={true}
+            resizable
           />
         </div>
-
-        <Modal title={LOCALIZATION.BOOK_SLOT} open={bookingModal} footer={null} onCancel={onCancel} width={'50%'}>
-
-          <Form form={form} layout="vertical" onFinish={onSubmit}>
-            <Row className="my-3">
-              <Col span={12} className="px-2">
-                <Text name={EVENT_KEYS.TITLE} placeholder={LOCALIZATION.TITLE} />
-              </Col>
-              <Col span={12} className="px-2">
-                <Dropdown name={EVENT_KEYS.USERS} placeholder={LOCALIZATION.SELECT_USERS}   className='form-control'  options={usersOptions} mode={LOCALIZATION.MULTIPLE}/>
-              </Col>
-            </Row>
-            <Row className="my-3">
-              <Col span={12} className="px-2">
-                <Email name={EVENT_KEYS.ATTENDIE_USER} placeholder={LOCALIZATION.ATTENDIE_USER} />
-              </Col>
-              <Col span={12} className="px-2">
-                <Dropdown name={EVENT_KEYS.RECURSION} placeholder={LOCALIZATION.RECURSION} options={RECURSION_OPTIONS} />
-              </Col>
-            </Row>
-            <Row className="my-3">
-              <Col span={12} className="px-2">
-                <Dropdown name={EVENT_KEYS.REMINDER} placeholder={LOCALIZATION.REMINDER} options={REMINDER_OPTIONS} />
-              </Col>
-              <Col span={12} className="px-2">
-                <Dropdown name={EVENT_KEYS.ROOM} placeholder={LOCALIZATION.SELECT_ROOM} options={ROOM_OPTIONS} />
-              </Col>
-            </Row>
-            <Row className="my-3">
-              <Col span={12} className="px-2">
-                <DatePicker
-                  name={EVENT_KEYS.START_DATE}
-                  placeholder={LOCALIZATION.START_TIME}
-                  format={DATE_FORMAT.HOUR_MINUTE_12F}
-                  showTime={{ use12Hours: true }}
-                />
-              </Col>
-              <Col span={12} className="px-2">
-                <DatePicker name={EVENT_KEYS.END_DATE} placeholder={LOCALIZATION.END_TIME} format={DATE_FORMAT.HOUR_MINUTE_12F} showTime={{ use12Hours: true }} />
-              </Col>
-            </Row>
-            <Row className="my-3">
-
-              <Col span={24} className="px-2">
-                <TextArea name={EVENT_KEYS.DESCRIPTION} placeholder={LOCALIZATION.DESCRIPTION} />
-              </Col>
-            </Row>
-            <Row className="add_booking_buttons">
-              <Button type="primary" onClick={onCancel} className="cancel">Cancel</Button>
-              <Button htmlType='submit' type='primary' onClick={() => new Event('submit')} >
-                {LOCALIZATION.ADD}
-              </Button>
-            </Row>
-          </Form>
-        </Modal>
       </PageLayout>
+
+      {/* Booking Modal */}
+      <AddBooking
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        bookingModal={bookingModal}
+        setBookingModal={setBookingModal}
+        form={form}
+        usersOptions={usersOptions}
+        roomOptions={roomOptions}
+      />
+
     </div>
   );
 };

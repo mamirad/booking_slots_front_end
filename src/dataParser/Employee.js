@@ -1,6 +1,6 @@
 export const parseEditEmployeeFormData = (employeeData, edit_employee_keys, id) => {
   if (id && employeeData && Object.keys(employeeData).length > 0) {
-    let parsedData = JSON.parse(JSON.stringify(employeeData));
+    let parsedData = JSON.parse(JSON.stringify(employeeData?.data));
 
 
     if (employeeData && Object.keys(employeeData).length > 0) {

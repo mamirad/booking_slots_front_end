@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import IconLogin1 from "../../../assets/images/Icon-login-1.png"
 import IconLogin2 from "../../../assets/images/Icon-login-2.png"
 import { Email, Password } from "components/Common/FormElements";
-
+import Loading from "components/Loading";
 // Constants
 import APP_URL from 'constants/ApplicationUrls';
 import { REDUX_STATES } from "constants/ReduxStates";
@@ -43,49 +43,21 @@ function Login() {
   let formRef = React.createRef();
   // Redux States
   const loading = useSelector((state) => state?.Auth?.loading);
-  // const {[LOGIN+LOADING]:securityLoading=false}=useSelector(state=>state.Crud);
-
-  // useEffect(() => {
-  //   if (location.state && location.state.from) {
-  //     localStorage.setItem("prevState", JSON.stringify(location.state.from.pathname));
-  //   }
-  // })
-
-
+ 
   const onSubmit = (data) => {
-
     dispatch(login(data)).then(
       () => {
         history.push('/');
         successNotification("Login Successfully")
       }
-    );
+    ).catch((error)=>{
+      console.log('>>>>>>>>>>>',error )
+    })
   };
-  // const simpleLogin = (data) => {
-  //   const prevState = JSON.parse(localStorage.getItem("prevState"))
-  //   dispatch(login(API_URLS.LOGIN, data)).then(
-  //     () => {
-  //       successNotification(LOCALIZATION.LOG_IN_SUCCESSFULLY);
-  //       if (prevState) {
-  //         history.push(prevState); // Redirect to the requested page
-  //       } else {
-  //         history.push( !!isSuperAdmin()? APP_URL.SUPER_ADMIN_DASHBOARD:APP_URL.USER_DASHBOARD); // Redirect to the dashboard by default
-  //       }
-  //       localStorage.setItem("prevState", null)
-  //     },
-  //     (e) => {
-  //       const message = e?.response?.data?.detail
-  //         ? e?.response?.data?.detail
-  //         : e?.response?.status === STATUS_CODES.NOT_FOUND
-  //           ? LOCALIZATION.INVALID_EMAIL_OR_PASSWORD
-  //           : LOCALIZATION.NETWORK_ERROR;
-  //       errorNotification(message);
-  //     }
-  //   );
-  // }
 
   return (
-      <div className="login-wrapper" >
+        
+        <div className="login-wrapper" >
         <div className="header">
         </div>
         <Col xs={12} md={8} lg={6} xl={3} className="title" >
@@ -121,6 +93,7 @@ function Login() {
         </Col>
 
       </div>
+    
   );
 }
 

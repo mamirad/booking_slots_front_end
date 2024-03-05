@@ -53,8 +53,8 @@
   "TITLE":"Title",
   "SELECT_ROOM":"Select Room",
   "SELECT_USERS":"Select Users",
-  "REPEAT_EVERY_WEEK":"Repeat Every Week",
-  "DAILY":"Daily",
+  "WEEKLY":"Weekly",
+  "MONTHLY":"Monthly",
   "NO_REPEAT":"No Repeat",
   "RECURSION":"Recursion",
   "REMINDER":"Reminder",
@@ -68,5 +68,6 @@
   "END_TIME":"End Time",
   "ATTENDIE_USER":"Attendie User",
   "MULTIPLE":"multiple",
+  "PLEASE_CHECK_NOTIFICATION":"Please Check Noification",
   "":""
 }

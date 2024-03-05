@@ -21,6 +21,7 @@ function login(loginModel) {
         {}
       );
 
+
       // Save Access Token
       const accessToken = response?.data?.token || null;
       StorageService.instance.setAccessToken(accessToken);
@@ -30,7 +31,7 @@ function login(loginModel) {
       StorageService.instance.setRefreshToken(refreshToken);
 
       // Save User Info
-      StorageService.instance.setUserInfo(response?.data?.user || {});
+      StorageService.instance.setUserInfo(response?.data?.resource_owner || {});
 
       dispatch(success(USER_ACTIONS.LOGIN_SUCCESS, response));
 

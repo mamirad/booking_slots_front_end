@@ -1,29 +1,40 @@
+//React
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux";
+
+//Ant Design
+import { PlusOutlined } from '@ant-design/icons';
+import Form from "antd/es/form/Form";
+import { Button, Modal } from "antd";
+
+//Commom
+import Pagination from "../Common/Pagination"
+import Table from "components/Common/Table";
 import Pagelayout from 'components/Common/PageLayout'
+import { Text } from "components/Common/FormElements";
+
+//Constants
 import { USERS_LIST } from "constants/Breadcumb";
 import LOCALIZATION from "services/LocalizationService";
-import { Button, Modal } from "antd";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import Table from "components/Common/Table";
-import { PlusOutlined } from '@ant-design/icons';
 import { REDUX_STATES } from "constants/ReduxStates";
 import { EMPLOYEE_TABLE_COLUMNS } from "./constants";
 import URL from "constants/ApplicationUrls";
 import { getAction, postAction } from "store/actions/CRUDAction";
 import { API_URLS } from "constants/ApiUrl";
-import { getToken } from "helpers/GeneralHelper";
-import { useDispatch, useSelector } from "react-redux";
-import { Text } from "components/Common/FormElements";
-import Form from "antd/es/form/Form";
 import { successNotification } from "helpers/Notification";
+import { LISTING_DATA } from "constants/General";
 
 
 function Layout() {
+  const [pageNo, setPageNo] = useState(LISTING_DATA.FIRST_PAGE);
+  const [pageSize, setPageSize] = useState(LISTING_DATA.PAGE_SIZE);
+
+
   const dispatch = useDispatch();
-  const token = getToken();
   const history = useHistory()
-  const { EMPLOYEES, RESPONSE, LOADING , INVITE } = REDUX_STATES;
-  const [form]=Form.useForm()
+  const { EMPLOYEES, RESPONSE, LOADING, INVITE } = REDUX_STATES;
+  const [form] = Form.useForm()
   const {
     [EMPLOYEES + LOADING]: loading = false,
     [EMPLOYEES + RESPONSE]: employeeData = {},
@@ -32,14 +43,19 @@ function Layout() {
 
   useEffect(() => {
     getEmployeesData()
-  }, [])
+  }, [pageNo])
 
   const getEmployeesData = () => {
     const params = {
-      token
+      page: pageNo,
     }
-    return dispatch(getAction(API_URLS.USERS, { params }, EMPLOYEES))
+    return dispatch(getAction(API_URLS.USERS, {params}, EMPLOYEES))
   }
+
+  const onPageSizeChange = (val) => {
+    setPageNo(LISTING_DATA.FIRST_PAGE);
+    setPageSize(val?.key);
+  };
 
   const actionConfig = {
     showEdit: true,
@@ -51,21 +67,24 @@ function Layout() {
   const onCancel = () => {
     setInviteModal(false)
   }
-  
+
   const onSubmit = (data) => {
     const formattedData = {
       user: {
         email: data?.email
       }
     };
-    dispatch(postAction(API_URLS.INVITE,formattedData,{}, INVITE)).then(
+
+    dispatch(postAction(API_URLS.INVITE, formattedData, {}, INVITE)).then(
       (res) => {
-        successNotification(LOCALIZATION.ADDED_EMPLOYEE_SUCCESSFULLY);
+        successNotification(LOCALIZATION.PLEASE_CHECK_NOTIFICATION);
         form.resetFields()
-        history.push(URL.USERS)
+        setInviteModal(false)
       }
     );
   };
+
+
   return (
     <>
       <Pagelayout
@@ -79,14 +98,26 @@ function Layout() {
         }
 
       >
+
         <Table
-          // searchPlaceholder="Search by Name"
           reduxKey={EMPLOYEES}
           columns={EMPLOYEE_TABLE_COLUMNS}
           actionConfig={actionConfig}
           parseData={employeeData}
-
         />
+
+        <div className="mt-2">
+          {employeeData?.data?.length > 0 ? (
+            <Pagination
+              total={employeeData?.data?.length}
+              current={pageNo}
+              pageSize={pageSize}
+              onChange={(val) => setPageNo(val)}
+              onPageSizeChange={onPageSizeChange}
+            />
+          ) : null}
+        </div>
+
         <Modal
           open={inviteModal}
           title={LOCALIZATION.INVITE_USER}
@@ -99,15 +130,15 @@ function Layout() {
           footer={null}
         >
           <Form form={form} layout="vertical" onFinish={onSubmit}>
-          <Text
-            className="mt-5"
-            name={LOCALIZATION.INVITE_EMAIL}
-            placeholder={LOCALIZATION.ENTER_INVITI_EMAIL}
-            required
-          />
-          <Button type="primary" htmlType="submit"  onClick={()=>new Event('submit')} >
-            {LOCALIZATION.INVITE}
-          </Button>
+            <Text
+              className="mt-5"
+              name={LOCALIZATION.INVITE_EMAIL}
+              placeholder={LOCALIZATION.ENTER_INVITI_EMAIL}
+              required
+            />
+            <Button type="primary" htmlType="submit" onClick={() => new Event('submit')} >
+              {LOCALIZATION.INVITE}
+            </Button>
           </Form>
         </Modal>
       </Pagelayout>
