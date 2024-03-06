@@ -1,4 +1,54 @@
+@import '../../assets//sass/variables';
+
 .calender-wrapper{
   height: 550px;
-  margin-top: 100px;
+  margin-top: 20px;
+}
+.timezone-wrapper{
+  .ant-col-12{
+    margin-top: -75px;
+    flex: end;
+  }
+  .filters-wrapper{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    .ant-btn{
+      border: 1px solid $border-color;
+    }
+  }
+}
+.add_booking_buttons{
+  display: flex;
+  justify-content: space-between;
+  .cancel{
+    background-color: lightgray;
+    color: black;
+  }
+}
+
+.ant-input{
+  ::placeholder{
+    color: $border-color !important;
+  }
+}
+.ant-select{
+  height: 45px !important;
+}
+.ant-picker{
+  height: 45px !important;
+  background-color:$colorwhite !important;
+  border: 1px solid $border-color;
+  ::placeholder{
+    color: $border-color !important;
+  }
+}
+
+.rbc-timeslot-group .rbc-time-slot{
+  height: 200px;
+}
+
+.slot-wrapper{
+  padding: 0%;
+  margin: 0%;
 }

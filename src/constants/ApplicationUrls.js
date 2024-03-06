@@ -1,7 +1,7 @@
 const URL = {
   WELCOME: '/welcome',
   BOOKINGS: '/bookings', 
-  USERS: '/users', 
+  USERS: '/users/', 
   ADD_USERS:"/users/add/",
   EDIT_USER:"/users/add/:id",
   PROJECT:'/project',

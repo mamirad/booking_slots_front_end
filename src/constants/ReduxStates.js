@@ -9,4 +9,9 @@ export const REDUX_STATES = {
   LOADING: "_loading",
   ERROR: "_error",
   RESPONSE: "_response",
+  SECURITY_CHECK:"security_check",
+  LOGIN:"login",
+  INVITE:"invite",
+  CHECK_TOKEN:"token",
+  ROOMS:"rooms"
 };

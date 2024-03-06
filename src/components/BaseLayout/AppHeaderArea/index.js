@@ -18,7 +18,7 @@ import {
 import { logout } from "store/actions/AuthAction";
 
 // Helpers
-import { getName, getEmail } from "helpers/GeneralHelper";
+import { getName, getEmail, getUserInfo } from "helpers/GeneralHelper";
 
 // Constants
 import APP_URL from "constants/ApplicationUrls";
@@ -33,6 +33,8 @@ const AppHeaderArea = () => {
   // Refs
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const userInfo=getUserInfo();
 
   // is New Job
   const isReplacement = false;
@@ -63,7 +65,7 @@ const AppHeaderArea = () => {
   const menu = (
     <Menu className="logout-menu" style={{textAlign:"center"}} >
       <div className="admin-text">{ "HD" }</div>
-      <div className="email-text"> { "hd@hd.com" } </div>
+      <div className="email-text"> {userInfo?.email} </div>
       <Menu.Item key="1">
         {LOCALIZATION.CHANGE_PASSWORD}
       </Menu.Item>
@@ -74,7 +76,7 @@ const AppHeaderArea = () => {
   );
   return (
     <Col xs={24} sm={4} md={4} lg={21} className="userProfile">
-      <h3>Admin</h3>
+     
       <Dropdown overlay={menu}>
         <div
           role="button"

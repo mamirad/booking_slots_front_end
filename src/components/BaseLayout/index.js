@@ -115,9 +115,6 @@ function BaseLayout() {
           </Switch>
         </Suspense>
         </div>
-        <Footer>
-          Copyright © {new Date().getFullYear()}
-        </Footer>
       </Content>
     </Layout>
   );

@@ -14,7 +14,7 @@ export const LOCAL_STORAGE_KEYS = {
 
 export const LISTING_DATA = {
   FIRST_PAGE: 1,
-  PAGE_SIZE: 10,
+  PAGE_SIZE: 9,
   PAGE_SIZE_MAX_SIZE: 9999,
 };
 

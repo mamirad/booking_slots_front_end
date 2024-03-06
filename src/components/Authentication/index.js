@@ -18,8 +18,6 @@ import { logout } from 'store/actions/AuthAction';
 // Antd
 import { Row, Col } from 'antd';
 
-// Style
-import './style.scss';
 
 // Main Logo
 import MainLogo from "../../assets/images/horizon-digital-logo-lg.png";

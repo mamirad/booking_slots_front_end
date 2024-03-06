@@ -21,16 +21,17 @@ function login(loginModel) {
         {}
       );
 
+
       // Save Access Token
-      const accessToken = response?.data?.access || null;
+      const accessToken = response?.data?.token || null;
       StorageService.instance.setAccessToken(accessToken);
 
       // Save Refresh Token
-      const refreshToken = response?.data?.refresh || null;
+      const refreshToken = response?.data?.refresh_token || null;
       StorageService.instance.setRefreshToken(refreshToken);
 
       // Save User Info
-      StorageService.instance.setUserInfo(response?.data?.user || {});
+      StorageService.instance.setUserInfo(response?.data?.resource_owner || {});
 
       dispatch(success(USER_ACTIONS.LOGIN_SUCCESS, response));
 

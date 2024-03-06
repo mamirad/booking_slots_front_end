@@ -58,6 +58,7 @@ function Dropdown({
           <div style={{ 'textAlign': 'center' }}><Spin size="small" /></div> :
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       }
+      className=''
     >
       {
         sortedOption && sortedOption?.map((data, index) => {

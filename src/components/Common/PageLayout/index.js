@@ -7,7 +7,7 @@ const Layout = ({title,actions,breadcumbs,loading,children}) => {
     <div className='pagelayout-wrapper'>
       {!!loading && Loading}
       <Breadcrumb items={breadcumbs}/>
-      <Row>
+      <Row className='action_row'>
         <Col span={!!actions?12:24}>
           <h1 className='page-title'>{title}</h1>
         </Col>

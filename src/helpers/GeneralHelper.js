@@ -10,18 +10,26 @@ import StorageService from "services/StorageService";
 
 import LOCALIZATION from "services/LocalizationService";
 
-export const getName = () => {
+export const isSuperAdmin = () => {
   const token = StorageService.instance.getAccessToken() || {};
-  const { first_name, last_name } = parseJwt(token)?.user || {};
+  const isSuperAdmin = parseJwt(token)?.user?.is_superuser || ""
+  return isSuperAdmin
+}
 
-  if (!!first_name && !!last_name) {
-    return `${first_name} ${last_name}`;
-  } else if (!!first_name) {
-    return first_name;
-  } else {
-    return last_name || LOCALIZATION.USER;
-  }
+export const getUserId = () => {
+  const info = StorageService.instance.getUserInfo() || {};
+  return info?.id;
 };
+
+export const getToken=()=>{
+  const token = StorageService.instance.getAccessToken() || {};
+  return token;
+}
+
+export const getUserInfo=()=>{
+  const info=StorageService.instance.getUserInfo()||{};
+  return info;
+}
 
 const debounceFunction = () => {
   let timeoutInstance = null;
@@ -33,8 +41,6 @@ const debounceFunction = () => {
     timeoutInstance = setTimeout(callback, SEARCH_TYPING_INTERVAL);
   };
 };
-
-export const debounce = debounceFunction();
 
 export const parseJwt = (token) => {
   var base64Url = token?.split(".")[1];
@@ -51,11 +57,9 @@ export const parseJwt = (token) => {
 
   return JSON.parse(jsonPayload);
 };
+export const debounce = debounceFunction();
 
-export const getUserId = () => {
-  const token = StorageService.instance.getAccessToken() || {};
-  return parseJwt(token)?.user_id;
-};
+
 
 export const disabledFutureDates = (current) => {
   return current && current.valueOf() > Date.now();

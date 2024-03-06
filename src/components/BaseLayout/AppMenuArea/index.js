@@ -64,7 +64,7 @@ function AppMenuArea ({
               disabled={ !!disabled }
               onClick={onClickMenu}
             >
-              <NavLink to={ url || '' } className="menu-item-title">{ name }</NavLink>
+              <NavLink to={ url || '' } className="menu-item-title">{icon} { name }</NavLink>
             </Menu.Item>
           );
 

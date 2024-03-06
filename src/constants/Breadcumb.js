@@ -14,3 +14,16 @@ export const USERS_LIST = [
     ),
   }
 ];
+export const BOOKINGS_LIST = [
+  {
+    href: '',
+    title: <UserOutlined />,
+  },
+  {
+    title: (
+      <>
+        <span>{LOCALIZATION.BOOKINGS}</span>
+      </>
+    ),
+  }
+];
